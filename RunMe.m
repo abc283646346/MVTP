@@ -56,7 +56,7 @@ num_cases = 400;
 success_flag = zeros(1, num_cases);
 cpu_time = zeros(1, num_cases);
 
-for case_id = 9 : 9
+for case_id = 1 : 400
     clc; case_str = ['BenchmarkCases\', num2str(case_id)];
     global boundary_configs_ obstacles_ original_obstacle_layers_
     load(case_str); tic;
