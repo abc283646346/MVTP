@@ -11,7 +11,7 @@ param wmax == BP[8];
 param tf == BP[9];
 param Nv == BP[10];
 param Nfe == BP[11];
-param Nobs := BP[12];
+param Nobs == BP[12];
 param hi = tf / Nfe;
 
 param BV{i in {1..Nv}, j in {1..6}};
@@ -65,9 +65,9 @@ s.t. Bonds_v {k in {1..Nv}, i in {1..Nfe}}:
 s.t. Bonds_w {k in {1..Nv}, i in {1..Nfe}}:
 -wmax <= w[k,i] <= wmax;
 s.t. Bonds_x {k in {1..Nv}, i in {1..Nfe}}:
--25 <= x[k,i] <= 25;
+-20 <= x[k,i] <= 20;
 s.t. Bonds_y {k in {1..Nv}, i in {1..Nfe}}:
--25 <= y[k,i] <= 25;
+-20 <= y[k,i] <= 20;
 
 ### Collision Avoidance Type 1 ###
 s.t. ObsToFrontDics {i in {1..Nfe}, j in {1..Nv}, k in {1..NUM_IND_V2O[i,j]}}:
@@ -108,10 +108,10 @@ s.t. EQ_end_x {m in {1..Nv}}:
 x[m,Nfe] = BV[m,4];
 s.t. EQ_end_y {m in {1..Nv}}:
 y[m,Nfe] = BV[m,5];
-s.t. EQ_end_theta1 {m in {1..Nv}}:
-sin(theta[m,Nfe]) = sin(BV[m,6]);
-s.t. EQ_end_theta2 {m in {1..Nv}}:
-cos(theta[m,Nfe]) = cos(BV[m,6]);
+s.t. EQ_end_theta {m in {1..Nv}}:
+tan(theta[m,Nfe]) = tan(BV[m,6]);
+#theta[m,Nfe] = BV[m,6];
+
 s.t. EQ_end_v {m in {1..Nv}}:
 v[m,Nfe] = 0;
 s.t. EQ_end_a {m in {1..Nv}}:

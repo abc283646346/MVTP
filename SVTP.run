@@ -1,0 +1,44 @@
+reset;
+shell ("del " & ("opti_flag.txt"));
+printf "0">>("opti_flag.txt");
+close ("opti_flag.txt");
+
+model SVTP.mod;
+include PIG.INIVAL;
+option solver ipopt;
+options ipopt_options "linear_solver='ma57'";
+solve;
+
+shell ("del " & ("opti_flag.txt"));
+if match (solve_message, "Optimal") > 0 then {
+	printf "1">>("opti_flag.txt");
+} else{
+	printf "0">>("opti_flag.txt");
+}
+close ("opti_flag.txt");
+
+shell ("del " & ("x.txt"));
+shell ("del " & ("y.txt"));
+shell ("del " & ("theta.txt"));
+shell ("del " & ("phy.txt"));
+shell ("del " & ("w.txt"));
+shell ("del " & ("v.txt"));
+shell ("del " & ("a.txt"));
+
+for {i in {1..Nfe}} {
+	printf "%5.4f;", x[i]>>("x.txt");
+	printf "%5.4f;", y[i]>>("y.txt");
+	printf "%5.4f;", theta[i]>>("theta.txt");
+	printf "%5.4f;", phy[i]>>("phy.txt");
+    printf "%5.4f;", w[i]>>("w.txt");
+    printf "%5.4f;", v[i]>>("v.txt");
+    printf "%5.4f;", a[i]>>("a.txt");
+}
+	
+close ("x.txt");
+close ("y.txt");
+close ("theta.txt");
+close ("phy.txt");
+close ("w.txt");
+close ("v.txt");
+close ("a.txt");
